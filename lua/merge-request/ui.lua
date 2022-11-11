@@ -46,7 +46,7 @@ function M.create_window(title)
         borderchars = borderchars,
     })
     vim.api.nvim_buf_set_name(bufnr, 'merge-request-description') -- buffer must have a name
-    vim.api.nvim_buf_set_option(bufnr, 'buftype', 'acwrite') -- buffer will always be written with BufWriteCmds
+    -- vim.api.nvim_buf_set_option(bufnr, 'buftype', 'acwrite') -- buffer will always be written with BufWriteCmds
     vim.api.nvim_buf_set_option(bufnr, 'bufhidden', 'delete') -- delete buf when no longer displayed in a window
     -- Close popup window on q or esc
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'q', "<Cmd>lua require('merge-request.ui').close()<CR>", { silent = true })
@@ -59,12 +59,21 @@ function M.create_window(title)
     )
 
     -- Save on write
-    local merge_request_group = vim.api.nvim_create_augroup('merge_request', {})
-    vim.api.nvim_create_autocmd('BufWriteCmd', {
-        group = merge_request_group,
-        buffer = bufnr,
-        command = "lua require('merge-request.ui').on_save()",
-    })
+    -- local merge_request_group = vim.api.nvim_create_augroup('merge_request', {})
+    -- vim.api.nvim_create_autocmd('BufWriteCmd', {
+    --     group = merge_request_group,
+    --     buffer = bufnr,
+    --     command = "lua require('merge-request.ui').on_save()",
+    -- })
+
+    -- 'Write' buffer by hitting Enter
+    vim.api.nvim_buf_set_keymap(
+        bufnr,
+        'n',
+        '<CR>',
+        "<Cmd>lua require('merge-request.ui').on_save()<CR>",
+        { silent = true }
+    )
 end
 
 return M
