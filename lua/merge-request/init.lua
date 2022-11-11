@@ -1,19 +1,41 @@
 local utils = require 'merge-request.utils'
+local ui = require 'merge-request.ui'
 local M = {}
 
+Merge_request_title = nil
+Merge_request_description = nil
+-- Need to create a config and put description in there
+
 M.create = function()
-    local title = utils.prompt 'Title'
-    if title == nil then
-        title = 'Draft: <Need to name this MR>'
+    Merge_request_title = utils.prompt 'Title'
+    if Merge_request_title == nil then
+        Merge_request_title = 'Draft: <Need to name this MR>'
     end
-    local description = utils.prompt 'Description'
-    if description == nil then
-        print 'Aborting due to empty description'
+    ui.create_window 'Description'
+end
+
+M.actually_create = function()
+    if Merge_request_description == nil then
+        print 'Aborting merge request creation'
         return
     end
-
-    local title_arg = 'merge_request.title=' .. title
-    local description_arg = 'merge_request.description=' .. description
+    local title_arg = 'merge_request.title=' .. Merge_request_title
+    local description_arg = 'merge_request.description=' .. Merge_request_description
+    -- maybe I should use plenary async job here instead?
+    -- local job = require('plenary.job')
+    -- job:new({
+    --     command = 'curl',
+    --     args = {'icanhazip.com'},
+    --     on_exit = function(j, exit_code)
+    --         local res = table.concat(j:result(), "\n")
+    --         local type = "Success!"
+    --
+    --         if exit_code ~=0 then
+    --             type = "Error!"
+    --         end
+    --         print(type, res)
+    --     end,
+    -- }):start()
     local _, _, stderr = utils.command_output {
         'git',
         'push',
@@ -31,17 +53,16 @@ M.create = function()
         -- '-o',
         -- 'merge_request.assign="email_address"',
     }
+    -- Set these to nil again
+    Merge_request_title = nil
+    Merge_request_description = nil
 
     local link_line = stderr[3]
     local trimmed = vim.trim(link_line)
     local link_start, _ = string.find(trimmed, 'http')
     local url = string.sub(trimmed, link_start)
     print('Merge request created at: ' .. url)
-
     -- TODO: open the link automatically with browse
-
-    -- TODO: need to replace the description with a buffer that you can write newlines to, THEN
-    -- replace all newlines with <br>
 end
 
 return M
