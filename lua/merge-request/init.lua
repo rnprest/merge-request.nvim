@@ -1,68 +1,73 @@
 local utils = require 'merge-request.utils'
 local ui = require 'merge-request.ui'
+local config = require 'merge-request.config'
+local job = require 'plenary.job'
 local M = {}
 
-Merge_request_title = nil
-Merge_request_description = nil
--- Need to create a config and put description in there
+--- Loads the user's specified configuration and creates their desired keymapping
+---@param opts table User-provided options, to override the default options with
+M.setup = function(opts)
+    -- TODO: need to error if user tries to pass an option that doesn't exist
+    if opts ~= nil then
+        config.opts = vim.tbl_deep_extend('keep', opts, config.default_opts)
+    else
+        config.opts = config.default_opts
+    end
 
+    vim.api.nvim_set_keymap(
+        'n',
+        config.opts['mapping'],
+        [[:lua require'merge-request'.create()<CR>]],
+        { noremap = true }
+    )
+end
+
+--- Prompts the user for a Title for their merge request. If none is provided, then "Draft: <Need to name this MR>" is used
 M.create = function()
-    Merge_request_title = utils.prompt 'Title'
-    if Merge_request_title == nil then
-        Merge_request_title = 'Draft: <Need to name this MR>'
+    config._title = utils.prompt 'Title'
+    if config._title == nil then
+        config._title = 'Draft: <Need to name this MR>'
     end
     ui.create_window 'Description'
 end
 
-M.actually_create = function()
-    if Merge_request_description == nil then
-        print 'Aborting merge request creation'
-        return
-    end
-    local title_arg = 'merge_request.title=' .. Merge_request_title
-    local description_arg = 'merge_request.description=' .. Merge_request_description
-    -- maybe I should use plenary async job here instead?
-    -- local job = require('plenary.job')
-    -- job:new({
-    --     command = 'curl',
-    --     args = {'icanhazip.com'},
-    --     on_exit = function(j, exit_code)
-    --         local res = table.concat(j:result(), "\n")
-    --         local type = "Success!"
-    --
-    --         if exit_code ~=0 then
-    --             type = "Error!"
-    --         end
-    --         print(type, res)
-    --     end,
-    -- }):start()
-    local _, _, stderr = utils.command_output {
-        'git',
-        'push',
-        '-u',
-        'origin',
-        utils.get_branch_name(),
-        '-o',
-        'merge_request.create',
-        '-o',
-        title_arg,
-        '-o',
-        description_arg,
-        '-o',
-        'merge_request.remove_source_branch',
-        -- '-o',
-        -- 'merge_request.assign="email_address"',
-    }
-    -- Set these to nil again
-    Merge_request_title = nil
-    Merge_request_description = nil
+--- Executes the git push command, and consequently opens the newly-created merge request in the user's browser (if enabled)
+M.submit = function()
+    local branch = utils.get_branch_name()
+    local title = config._title
+    local description = config._description
+    local args = utils.get_args(branch, title, description)
 
-    local link_line = stderr[3]
-    local trimmed = vim.trim(link_line)
-    local link_start, _ = string.find(trimmed, 'http')
-    local url = string.sub(trimmed, link_start)
-    print('Merge request created at: ' .. url)
-    -- TODO: open the link automatically with browse
+    local output = {}
+    job
+        :new({
+            command = 'git',
+            args = args,
+            on_exit = function(j, _)
+                for _, v in ipairs(j:stderr_result()) do
+                    table.insert(output, v)
+                end
+            end,
+        })
+        :sync(10000) -- wait 10 seconds, just in case the command takes a hot minute
+
+    local url = ''
+    for _, line in ipairs(output) do
+        print(line)
+
+        url = string.match(line, 'https?://[^ ,;)]*')
+        if config.opts.open_in_browser == true
+            and url ~= nil
+            and url ~= ''
+            and string.match(url, 'merge_requests') ~= nil
+        then
+            utils.open_url(url)
+        end
+    end
+
+    -- Reset these for next use
+    config._title = nil
+    config._description = nil
 end
 
 return M
