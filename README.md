@@ -1,4 +1,12 @@
 <h1 align='center'>merge-request.nvim</h1>
+<h2 align="center">
+  <img alt="PR" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat"/>
+  <img alt="Lua" src="https://img.shields.io/badge/lua-%232C2D72.svg?&style=flat&logo=lua&logoColor=white"/>
+</h2>
+<h3 align="center">
+  <a href="#requirements">Requirements</a> •
+  <a href="#installation-and-setup">Installation and Setup</a>
+</h3>
 
 Create GitLab Merge Requests directly from within neovim, by using their [Git push options](https://docs.gitlab.com/ee/user/project/push_options.html#push-options-for-merge-requests).
 
