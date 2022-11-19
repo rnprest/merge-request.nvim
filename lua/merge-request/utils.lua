@@ -5,7 +5,7 @@ local M = {}
 
 --- Get's the current branch name, even if it hasn't been pushed yet
 ---@return string Current branch name
-function M.get_branch_name()
+M.get_branch_name = function()
     local args = {
         'symbolic-ref',
         '--short',
@@ -23,14 +23,14 @@ end
 
 --- Opens the given url in the user's browser
 ---@param url string The url to open
-function M.open_url(url)
+M.open_url = function(url)
     vim.cmd('exec "!open \'' .. url .. '\'"')
 end
 
 --- Prompts the user for input
 ---@param arg string The title of the prompt to provide to the user
 ---@return string The user's input
-function M.prompt(arg)
+M.prompt = function(arg)
     local answer
     vim.ui.input({
         prompt = 'Merge Request (' .. arg .. '): ',
@@ -47,7 +47,7 @@ end
 ---@param title string The merge request title
 ---@param description string The merge request description
 ---@return table The required arguments for the user's desired merge request to be created
-function M.get_args(branch, title, description)
+M.get_args = function(branch, title, description)
     local args = {
         'push',
         '-u',

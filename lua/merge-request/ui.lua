@@ -7,14 +7,14 @@ M.popup_id = nil
 M.popup_bufnr = nil
 
 --- Closes the floating window used to provide the description
-function M.close()
+M.close = function()
     vim.api.nvim_win_close(M.popup_id, true)
     M.popup_id = nil
     M.popup_bufnr = nil
 end
 
 --- Submits the merge request with the description provided in the floating window
-function M.on_save()
+M.on_save = function()
     local lines = vim.api.nvim_buf_get_lines(M.popup_bufnr, 0, -1, true)
     local desc = ''
 
@@ -38,7 +38,7 @@ end
 
 --- Creates a floating window to input the description into
 ---@param title string The title to display at the top of the floating window
-function M.create_window(title)
+M.create_window = function(title)
     local width = 100
     local height = 20
     local borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
