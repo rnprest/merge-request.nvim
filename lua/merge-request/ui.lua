@@ -49,7 +49,7 @@ M.create_window = function(title)
     M.popup_bufnr = bufnr -- need to use this in stringify_description
 
     M.popup_id, _ = popup.create(bufnr, {
-        title = 'Merge Request (' .. title .. ')',
+        title = 'Merge Request (' .. title .. ') - q or <esc> to abort, <CR> to submit',
         line = math.floor(((vim.o.lines - height) / 2) - 1),
         col = math.floor((vim.o.columns - width) / 2),
         minwidth = width,
