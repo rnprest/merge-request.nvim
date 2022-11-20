@@ -23,6 +23,7 @@ M.setup = function(opts)
 end
 
 --- Prompts the user for a Title for their merge request. If none is provided, then "Draft: <Need to name this MR>" is used
+--- After the title is provided, the description window will be created
 M.create = function()
     config._title = utils.prompt 'Title'
     if config._title == nil then
