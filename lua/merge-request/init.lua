@@ -65,10 +65,6 @@ M.submit = function()
             utils.open_url(url)
         end
     end
-
-    -- Reset these for next use
-    config._title = nil
-    config._description = nil
 end
 
 return M

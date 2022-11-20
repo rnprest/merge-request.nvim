@@ -11,6 +11,9 @@ M.close = function()
     vim.api.nvim_win_close(M.popup_id, true)
     M.popup_id = nil
     M.popup_bufnr = nil
+    -- Reset these for next use
+    config._title = nil
+    config._description = nil
 end
 
 --- Submits the merge request with the description provided in the floating window
