@@ -13,6 +13,11 @@ M.default_opts = {
     draft = false, -- Mark the merge request as a draft
 }
 
+-- User's options after overriding within setup function
+M.opts = {}
+local opts_mt = { __index = M.default_opts }
+setmetatable(M.opts, opts_mt)
+
 --- Maps config option names --> cli option names
 M.push_options = {
     remove_source_branch = 'merge_request.remove_source_branch',
@@ -31,7 +36,5 @@ M.add_push_options = function(command)
     end
     return command
 end
-
-M.opts = {}
 
 return M

@@ -11,9 +11,7 @@ local M = {}
 M.setup = function(opts)
     -- TODO: need to error if user tries to pass an option that doesn't exist
     if opts ~= nil then
-        config.opts = vim.tbl_deep_extend('keep', opts, config.default_opts)
-    else
-        config.opts = config.default_opts
+        config.opts = opts
     end
 
     vim.api.nvim_set_keymap(
