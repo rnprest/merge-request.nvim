@@ -1,4 +1,11 @@
-<h1 align='center'>merge-request.nvim</h1>
+<h1 align="center">
+  <br>
+  merge-request.nvim
+  <br>
+  <br>
+  <img width="800" alt="merge-request.nvim" src="https://user-images.githubusercontent.com/47462344/203835794-892ac60e-8c02-48b3-8ae4-2efbd5ccfbdb.png">
+  <br>
+</h1>
 <h2 align="center">
   <img alt="PR" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat"/>
   <img alt="Lua" src="https://img.shields.io/badge/lua-%232C2D72.svg?&style=flat&logo=lua&logoColor=white"/>
