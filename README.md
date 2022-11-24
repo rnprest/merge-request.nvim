@@ -41,3 +41,16 @@ use {
     end,
 }
 ```
+
+## Usage
+
+1. Hit `<leader>mr` (or your provided override)
+2. Start typing the title of your merge request
+   - Hit `<CR>` to save the title
+3. Start typing the description of your merge request
+   - Hit `q` or `<esc>` to abort the merge request creation
+   - Hit `<CR>` to save the description and submit the MR
+
+## Documentation
+
+Access the help tags with `:h merge-request`
