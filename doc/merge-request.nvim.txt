@@ -1,20 +1,26 @@
-M.setup({opts})                                                        *M.setup*
+================================================================================
+                                                                 *merge-request*
+
+M.setup({opts})                                            *merge-request.setup*
      Loads the user's specified configuration and creates their desired keymapping
 
     Parameters: ~
         {opts}  (table)  User-provided options, to override the default options with
 
 
-M.create()                                                            *M.create*
+M.create()                                                *merge-request.create*
      Prompts the user for a Title for their merge request. If none is provided, then "Draft: <Need to name this MR>" is used
      After the title is provided, the description window will be created
 
 
-M.submit()                                                            *M.submit*
+M.submit()                                                *merge-request.submit*
      Executes the git push command, and consequently opens the newly-created merge request in the user's browser (if enabled)
 
 
-M.add_push_options({command})                               *M.add_push_options*
+================================================================================
+                                                          *merge-request.config*
+
+M.add_push_options({command})            *merge-request.config.add_push_options*
      Adds any push options that the user has enabled in their config
 
     Parameters: ~
@@ -24,21 +30,24 @@ M.add_push_options({command})                               *M.add_push_options*
         (table)  updated table of arguments, that now includes the user's desired push options
 
 
-M.get_branch_name()                                          *M.get_branch_name*
+================================================================================
+                                                           *merge-request.utils*
+
+M.get_branch_name()                        *merge-request.utils.get_branch_name*
      Get's the current branch name, even if it hasn't been pushed yet
 
     Returns: ~
         (string)  branch name
 
 
-M.open_url({url})                                                   *M.open_url*
+M.open_url({url})                                 *merge-request.utils.open_url*
      Opens the given url in the user's browser
 
     Parameters: ~
         {url}  (string)  The url to open
 
 
-M.prompt({arg})                                                       *M.prompt*
+M.prompt({arg})                                     *merge-request.utils.prompt*
      Prompts the user for input
 
     Parameters: ~
@@ -48,7 +57,7 @@ M.prompt({arg})                                                       *M.prompt*
         (string)  user's input
 
 
-                                                                    *M.get_args*
+                                                  *merge-request.utils.get_args*
 M.get_args({branch}, {title}, {description})
      Creates the required arguments for a merge request
 
@@ -61,15 +70,18 @@ M.get_args({branch}, {title}, {description})
         (table)  required arguments for the user's desired merge request to be created
 
 
-M.close()                                                              *M.close*
+================================================================================
+                                                              *merge-request.ui*
+
+M.close()                                               *merge-request.ui.close*
      Closes the floating window used to provide the description
 
 
-M.on_save()                                                          *M.on_save*
+M.on_save()                                           *merge-request.ui.on_save*
      Submits the merge request with the description provided in the floating window
 
 
-M.create_window({title})                                       *M.create_window*
+M.create_window({title})                        *merge-request.ui.create_window*
      Creates a floating window to input the description into
 
     Parameters: ~

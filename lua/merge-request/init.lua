@@ -1,3 +1,5 @@
+---@mod merge-request
+
 local utils = require 'merge-request.utils'
 local ui = require 'merge-request.ui'
 local config = require 'merge-request.config'

@@ -1,0 +1,15 @@
+merge-request	merge-request.nvim.txt	/*merge-request*
+merge-request.config	merge-request.nvim.txt	/*merge-request.config*
+merge-request.config.add_push_options	merge-request.nvim.txt	/*merge-request.config.add_push_options*
+merge-request.create	merge-request.nvim.txt	/*merge-request.create*
+merge-request.setup	merge-request.nvim.txt	/*merge-request.setup*
+merge-request.submit	merge-request.nvim.txt	/*merge-request.submit*
+merge-request.ui	merge-request.nvim.txt	/*merge-request.ui*
+merge-request.ui.close	merge-request.nvim.txt	/*merge-request.ui.close*
+merge-request.ui.create_window	merge-request.nvim.txt	/*merge-request.ui.create_window*
+merge-request.ui.on_save	merge-request.nvim.txt	/*merge-request.ui.on_save*
+merge-request.utils	merge-request.nvim.txt	/*merge-request.utils*
+merge-request.utils.get_args	merge-request.nvim.txt	/*merge-request.utils.get_args*
+merge-request.utils.get_branch_name	merge-request.nvim.txt	/*merge-request.utils.get_branch_name*
+merge-request.utils.open_url	merge-request.nvim.txt	/*merge-request.utils.open_url*
+merge-request.utils.prompt	merge-request.nvim.txt	/*merge-request.utils.prompt*

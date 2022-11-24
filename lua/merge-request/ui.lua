@@ -1,3 +1,5 @@
+---@mod merge-request.ui
+
 local popup = require 'plenary.popup'
 local config = require 'merge-request.config'
 

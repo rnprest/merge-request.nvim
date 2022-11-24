@@ -1,3 +1,5 @@
+---@mod merge-request.config
+
 local M = {}
 
 M._title = nil

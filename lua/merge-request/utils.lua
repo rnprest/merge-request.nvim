@@ -1,3 +1,5 @@
+---@mod merge-request.utils
+
 local job = require 'plenary.job'
 local config = require 'merge-request.config'
 
