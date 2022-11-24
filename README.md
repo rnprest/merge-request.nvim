@@ -12,7 +12,9 @@
 </h2>
 <h3 align="center">
   <a href="#requirements">Requirements</a> •
-  <a href="#installation-and-setup">Installation and Setup</a>
+  <a href="#installation-and-setup">Installation and Setup</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#documentation">Documentation</a>
 </h3>
 
 Create GitLab Merge Requests directly from within neovim, by using their [Git push options](https://docs.gitlab.com/ee/user/project/push_options.html#push-options-for-merge-requests).
